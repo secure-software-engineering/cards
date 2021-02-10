@@ -20,6 +20,8 @@ You can use `https://github.com/secure-software-engineering/cards/releases/lates
 
 ## Building The Artifacts Yourself
 
+Checkout this repository and checkout `https://git.cs.uni-paderborn.de/geismann/attackgraph.git` under `../attackgraph`.
+
 Make sure you have Maven installed, then inside the directory `de.uni_paderborn.swt.cardsAttackgraphParent`, run `mvn clean verify` to build.
 The update site will be available inside `de.uni_paderborn.swt.cards.update/target/repository/`.
 
