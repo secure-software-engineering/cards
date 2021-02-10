@@ -19,7 +19,7 @@ You can use artifacts of our CI as a update site for eclipse plugins or have a l
 
 ## Building The Artifacts Yourself
 
-Make sure you have Maven installed, then inside the root directory of this repository, run `mvn clean verify` to build.
+Make sure you have Maven installed, then inside the directory `de.uni_paderborn.swt.cardsAttackgraphParent`, run `mvn clean verify` to build.
 The update site will be available inside `de.uni_paderborn.swt.cards.update/target/repository/`.
 
 # Documentation
