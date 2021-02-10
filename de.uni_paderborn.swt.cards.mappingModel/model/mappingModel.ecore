@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="mappingModel" nsURI="http://www.uni_paderborn.de/swt/cards/mappingModel"
+    nsPrefix="mappingModel">
+  <eClassifiers xsi:type="ecore:EClass" name="Mapping" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetClassName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetMethodName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PortMapping" eSuperTypes="#//Mapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" lowerBound="1" eType="ecore:EClass ../../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.ecore#//Port"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentMapping" eSuperTypes="#//Mapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="ecore:EClass ../../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.ecore#//Component"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SourceMapping" eSuperTypes="#//Mapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataType" lowerBound="1"
+        eType="ecore:EClass ../../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.ecore#//DataType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="ecore:EClass ../../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.ecore#//Component"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SinkMapping" eSuperTypes="#//Mapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="ecore:EClass ../../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.ecore#//Component"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InPortMapping" eSuperTypes="#//PortMapping"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OutPortMapping" eSuperTypes="#//PortMapping"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SanitizerMapping" eSuperTypes="#//Mapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sanitizer" lowerBound="1"
+        eType="ecore:EClass ../../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.ecore#//Sanitizer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GroupFilterMapping" eSuperTypes="#//Mapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataGroup" eType="ecore:EClass ../../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.ecore#//DataGroup"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Model">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mappings" upperBound="-1"
+        eType="#//Mapping" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

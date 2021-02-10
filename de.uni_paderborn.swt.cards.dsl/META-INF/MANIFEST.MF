@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: de.uni_paderborn.swt.cards.dsl
+Bundle-ManifestVersion: 2
+Bundle-Name: CARDS DSL
+Bundle-Vendor: Softwaretechnik, Heinz Nixdorf Institut, Universität Paderborn
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: de.uni_paderborn.swt.cards.dsl;singleton:=true
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.eclipse.xtend.lib;bundle-version="2.14.0",
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: de.uni_paderborn.swt.cards.dsl,
+ de.uni_paderborn.swt.cards.dsl.analyzer,
+ de.uni_paderborn.swt.cards.dsl.analyzer.data,
+ de.uni_paderborn.swt.cards.dsl.export,
+ de.uni_paderborn.swt.cards.dsl.formatting2,
+ de.uni_paderborn.swt.cards.dsl.generator,
+ de.uni_paderborn.swt.cards.dsl.parser.antlr,
+ de.uni_paderborn.swt.cards.dsl.parser.antlr.internal,
+ de.uni_paderborn.swt.cards.dsl.scoping,
+ de.uni_paderborn.swt.cards.dsl.serializer,
+ de.uni_paderborn.swt.cards.dsl.services,
+ de.uni_paderborn.swt.cards.dsl.tmdsl,
+ de.uni_paderborn.swt.cards.dsl.tmdsl.impl,
+ de.uni_paderborn.swt.cards.dsl.tmdsl.util,
+ de.uni_paderborn.swt.cards.dsl.validation
+Import-Package: org.apache.log4j

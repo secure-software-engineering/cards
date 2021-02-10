@@ -1,0 +1,306 @@
+System System0 {
+	mappingModel: "assumptionTest.mappingmodel"
+	dataTypes{
+DataType A_DT{
+	
+},
+DataType B_DT {
+	
+},
+DataType C_DT {
+	
+}
+	}
+	components{
+		AtomicComponent A1 {
+			ports {
+				INPort A_in ( )
+				OUTPort A_out ( )
+			}
+			sourceOf { A_DT }
+		}
+		AtomicComponent B {
+			ports {
+				OUTPort B_out ( )
+				INPort B_in ( )
+			}
+			sourceOf { B_DT }
+		}
+		AtomicComponent C {
+			ports {
+				OUTPort C_out ( )
+				INPort C_in ( )
+			}
+			sourceOf { C_DT }
+		}
+		CompositeComponent CompAss {
+			componentParts {
+				ComponentPart CompAss_BPart {
+					component B
+					portParts {
+						PortPart Port1portPart map B_out,
+						PortPart Port2portPart map B_in
+					}
+				}
+				ComponentPart CompAss_APart {
+					component A1
+					portParts {
+						PortPart A_inportPart map A_in,
+						PortPart A_outportPart map A_out
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from CompAss_APart.A_outportPart to CompAss_BPart.Port2portPart
+			}
+		}
+		CompositeComponent CompSanAss {
+			componentParts {
+				ComponentPart CompSanAss_APart {
+					component A2
+					portParts {
+						PortPart Port1portPart map A2_in,
+						PortPart Port2portPart map A2_out
+					}
+				}
+				ComponentPart CompSanAss_B {
+					component B
+					portParts {
+						PortPart B_outportPart map B_out,
+						PortPart B_inportPart map B_in
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from CompSanAss_B.B_inportPart to CompSanAss_APart.Port2portPart
+			}
+		}
+		CompositeComponent FlowAss {
+			componentParts {
+				ComponentPart FlowAss_CPart {
+					component C
+					portParts {
+						PortPart C_outportPart map C_out,
+						PortPart C_inportPart map C_in
+					}
+				}
+				ComponentPart FlowAss_APart {
+					component A
+					portParts {
+						PortPart A_inportPart map A_in,
+						PortPart A_outportPart map A_out
+					}
+				}
+				ComponentPart FlowAss_B1Part {
+					component B1
+					portParts {
+						PortPart B1_inportPart map B1_in,
+						PortPart B1_outportPart map B1_out ,
+						PortPart Port3portPart map B1_out2
+					}
+				}
+				ComponentPart FlowAss_APart2 {
+					component A
+					portParts {
+						PortPart A_inportPart map A_in,
+						PortPart A_outportPart map A_out
+					}
+				}
+				ComponentPart FlowAss_CPart2 {
+					component C
+					portParts {
+						PortPart C_outportPart map C_out,
+						PortPart C_inportPart map C_in
+					}
+				}
+				ComponentPart FlowAss_B1Part2 {
+					component B1
+					portParts {
+						PortPart B1_inportPart map B1_in,
+						PortPart B1_outportPart map B1_out ,
+						PortPart B1_out2portPart map B1_out2
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from FlowAss_B1Part.B1_inportPart to FlowAss_APart.A_outportPart
+				Connector ^Connector from FlowAss_CPart.C_inportPart to FlowAss_B1Part.B1_outportPart
+				Connector ^Connector from FlowAss_APart2.A_outportPart to FlowAss_B1Part2.B1_inportPart
+				Connector ^Connector from FlowAss_B1Part2.B1_out2portPart to FlowAss_CPart2.C_inportPart
+			}
+		}
+		CompositeComponent FlowSanAss {
+			componentParts {
+				ComponentPart FlowSanAss_CPart {
+					component C
+					portParts {
+						PortPart C_outportPart map C_out,
+						PortPart C_inportPart map C_in
+					}
+				}
+				ComponentPart FlowSanAss_APart {
+					component A
+					portParts {
+						PortPart A_inportPart map A_in,
+						PortPart A_outportPart map A_out
+					}
+				}
+				ComponentPart FlowSanAss_B2Part {
+					component B2
+					portParts {
+						PortPart B2_inportPart map B2_in,
+						PortPart B2_outportPart map B2_out ,
+						PortPart Port3portPart map B2_out2
+					}
+				}
+				ComponentPart FlowSanAss_APart2 {
+					component A
+					portParts {
+						PortPart A_inportPart map A_in,
+						PortPart A_outportPart map A_out
+					}
+				}
+				ComponentPart FlowSanAss_CPart2 {
+					component C
+					portParts {
+						PortPart C_outportPart map C_out,
+						PortPart C_inportPart map C_in
+					}
+				}
+				ComponentPart FlowSanAss_B2Part2 {
+					component B2
+					portParts {
+						PortPart B2_inportPart map B2_in,
+						PortPart B2_outportPart map B2_out ,
+						PortPart B2_out2portPart map B2_out2
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from FlowSanAss_APart.A_outportPart to FlowSanAss_B2Part.B2_inportPart
+				Connector ^Connector from FlowSanAss_B2Part.B2_outportPart to FlowSanAss_CPart.C_inportPart
+				Connector ^Connector from FlowSanAss_B2Part2.B2_out2portPart to FlowSanAss_CPart2.C_inportPart
+				Connector ^Connector from FlowSanAss_APart2.A_outportPart to FlowSanAss_B2Part2.B2_inportPart
+			}
+		}
+		CompositeComponent PortAss {
+			componentParts {
+				ComponentPart PortAss_A3Part {
+					component A3
+					portParts {
+						PortPart A3_inportPart map A3_in,
+						PortPart A3_outportPart map A3_out
+					}
+				}
+				ComponentPart PortAss_BPart {
+					component B
+					portParts {
+						PortPart B_outportPart map B_out,
+						PortPart B_inportPart map B_in
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from PortAss_A3Part.A3_outportPart to PortAss_BPart.B_inportPart
+			}
+		}
+		AtomicComponent A2 {
+			ports {
+				INPort A2_in ( )
+				OUTPort A2_out ( )
+			}
+			sourceOf { A_DT }
+		}
+		AtomicComponent A {
+			ports {
+				INPort A_in ( )
+				OUTPort A_out ( )
+			}
+			sourceOf { A_DT }
+		}
+		AtomicComponent B1 {
+			ports {
+				INPort B1_in ( )
+				OUTPort B1_out ( )
+				OUTPort B1_out2 ( )
+			}
+			sourceOf { B_DT }
+		}
+		AtomicComponent B2 {
+			ports {
+				INPort B2_in ( )
+				OUTPort B2_out ( )
+				OUTPort B2_out2 ( )
+			}
+			sourceOf { B_DT }
+		}
+		AtomicComponent A3 {
+			ports {
+				INPort A3_in ( )
+				OUTPort A3_out ( )
+			}
+			sourceOf { A_DT }
+		}
+		AtomicComponent A4 {
+			ports {
+				INPort A4_in ( )
+				OUTPort A4_out ( )
+			}
+			sourceOf { A_DT }
+		}
+		CompositeComponent PortSanAss {
+			componentParts {
+				ComponentPart PortSanAss_A4Part {
+					component A4
+					portParts {
+						PortPart A4_inportPart map A4_in,
+						PortPart A4_outportPart map A4_out
+					}
+				}
+				ComponentPart PortSanAss_BPart {
+					component B
+					portParts {
+						PortPart B_outportPart map B_out,
+						PortPart B_inportPart map B_in
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from PortSanAss_A4Part.A4_outportPart to PortSanAss_BPart.B_inportPart
+			}
+		}
+}}
+Groups {
+	DataGroup ^DataGroup {
+		A_DT,
+		B_DT ,
+		C_DT
+	}
+}
+Sanitizer {
+	^Sanitizer
+}
+DataFlowRestrictions {
+}
+DataFlowAssumptions {
+	componentAssumptions {
+		Component A1 neverOut ^DataGroup
+	}
+	componentSanitzerAssumptions {
+		Component A2 sanitizes ^DataGroup using ^Sanitizer
+	}
+	flowAssumptions {
+		Component B1 prevents DataFlow B1_in -> B1_out of ^DataGroup
+		Component B1 prevents DataFlow B1_in -> B1_out2
+	}
+	portAssumptions {
+		Port A3_out neverOut ^DataGroup
+	}
+	portSanitizerAssumptions {
+		Port A4_out sanitizes ^DataGroup using ^Sanitizer
+	}
+	sanitizersAssumptions {
+		Component B2 sanitizes DataFlow B2_in -> B2_out of ^DataGroup using ^Sanitizer
+		Component B2 sanitizes DataFlow B2_in -> B2_out2 using ^Sanitizer
+	}
+}

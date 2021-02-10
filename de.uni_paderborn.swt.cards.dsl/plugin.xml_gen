@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.emf.ecore.generated_package">
+		<package
+			uri = "http://www.uni_paderborn.de/swt/cards/dsl/TMDsl"
+			class = "de.uni_paderborn.swt.cards.dsl.tmdsl.TmdslPackage"
+			genModel = "model/generated/TMDsl.genmodel" />
+	</extension>
+</plugin>

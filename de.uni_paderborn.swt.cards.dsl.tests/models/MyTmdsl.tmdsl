@@ -1,0 +1,353 @@
+System System0 {
+	mappingModel: "MyTmdsl.mappingmodel"
+	dataTypes{
+DataType A_DT{
+	
+},
+DataType B_DT {
+	
+},
+DataType C_DT {
+	
+},
+DataType D_DT{
+	
+},
+DataType E_DT {
+	
+},
+DataType F_DT {
+	
+}
+	}
+	components{
+		AtomicComponent A {
+			ports {
+				INPort A_in ( )
+				OUTPort A_out ( )
+			}
+			sourceOf { A_DT }
+		}
+		AtomicComponent B {
+			ports {
+				OUTPort B_out ( )
+				INPort B_in ( )
+			}
+			sourceOf { B_DT }
+		}
+		AtomicComponent C {
+			ports {
+				OUTPort C_out ( )
+				INPort C_in ( )
+			}
+			sourceOf { C_DT }
+		}
+		CompositeComponent Single_CC {
+			componentParts {
+				ComponentPart Part_A {
+					component A
+					portParts {
+						PortPart Port1portPart map A_in,
+						PortPart Port2portPart map A_out
+					}
+				}
+			}
+		}
+		CompositeComponent Duo_CC {
+			componentParts {
+				ComponentPart Part_A {
+					component A
+					portParts {
+						PortPart Port1portPart map A_in,
+						PortPart Port2portPart map A_out
+					}
+				}
+				ComponentPart Part_B {
+					component B
+					portParts {
+						PortPart Port1portPart map B_out,
+						PortPart Port2portPart map B_in
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from Part_A.Port2portPart to Part_B.Port2portPart
+			}
+		}
+		CompositeComponent Triple_CC {
+			componentParts {
+				ComponentPart Part_A {
+					component A
+					portParts {
+						PortPart Port1portPart map A_in,
+						PortPart Port2portPart map A_out
+					}
+				}
+				ComponentPart Part_B {
+					component B
+					portParts {
+						PortPart Port1portPart map B_out,
+						PortPart Port2portPart map B_in
+					}
+				}
+				ComponentPart Part_C {
+					component C
+					portParts {
+						PortPart Port1portPart map C_out,
+						PortPart Port2portPart map C_in
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from Part_A.Port2portPart to Part_B.Port2portPart
+				Connector ^Connector from Part_C.Port2portPart to Part_B.Port1portPart
+			}
+		}
+		CompositeComponent Triple_IO_CC {
+			ports {
+				INPort IN ( )
+				OUTPort OUT ( )
+			}
+			componentParts {
+				ComponentPart Part_A {
+					component A
+					portParts {
+						PortPart Port1portPart map A_in,
+						PortPart Port2portPart map A_out
+					}
+				}
+				ComponentPart Part_B {
+					component B
+					portParts {
+						PortPart Port1portPart map B_out,
+						PortPart Port2portPart map B_in
+					}
+				}
+				ComponentPart Part_C {
+					component C
+					portParts {
+						PortPart Port1portPart map C_out,
+						PortPart Port2portPart map C_in
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from Part_A.Port2portPart to Part_B.Port2portPart
+				Connector ^Connector from Part_C.Port2portPart to Part_B.Port1portPart
+			}
+			portMappings {
+				PortMapping Mapping from IN to Part_A.Port1portPart
+				PortMapping Mapping from OUT to Part_C.Port1portPart
+			}
+		}
+		CompositeComponent Inwards_Mapping_CC {
+			componentParts {
+				ComponentPart Part_Triple_IO_CC {
+					component Triple_IO_CC
+					portParts {
+						PortPart Port1portPart map IN,
+						PortPart Port2portPart map OUT
+					}
+				}
+				ComponentPart Part_D {
+					component D
+					portParts {
+						PortPart Port1portPart map D_in,
+						PortPart Port2portPart map D_out
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from Part_D.Port2portPart to Part_Triple_IO_CC.Port1portPart
+			}
+		}
+		AtomicComponent D {
+			ports {
+				INPort D_in ( )
+				OUTPort D_out ( )
+			}
+			sourceOf { D_DT }
+		}
+		CompositeComponent In_Out_Mapping_CC {
+			componentParts {
+				ComponentPart Part_D {
+					component D
+					portParts {
+						PortPart Port1portPart map D_in,
+						PortPart Port2portPart map D_out
+					}
+				}
+				ComponentPart Part_Triple_IO_CC {
+					component Triple_IO_CC
+					portParts {
+						PortPart Port1portPart map IN,
+						PortPart Port2portPart map OUT
+					}
+				}
+				ComponentPart Part_Triple_IO_CC_2 {
+					component Triple_IO_CC
+					portParts {
+						PortPart Port1portPart map IN,
+						PortPart Port2portPart map OUT
+					}
+				}
+				ComponentPart Part_E {
+					component E
+					portParts {
+						PortPart Port1portPart map E_in,
+						PortPart Port2portPart map E_out
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from Part_Triple_IO_CC_2.Port1portPart to Part_Triple_IO_CC.Port2portPart
+				Connector ^Connector from Part_Triple_IO_CC.Port1portPart to Part_D.Port2portPart
+				Connector ^Connector from Part_E.Port1portPart to Part_Triple_IO_CC_2.Port2portPart
+			}
+		}
+		AtomicComponent E {
+			ports {
+				INPort E_in ( )
+				OUTPort E_out ( )
+			}
+			sourceOf { E_DT }
+		}
+		CompositeComponent Loop_CC {
+			componentParts {
+				ComponentPart Part_A {
+					component A
+					portParts {
+						PortPart Port1portPart map A_in,
+						PortPart Port2portPart map A_out
+					}
+				}
+				ComponentPart Part_B {
+					component B
+					portParts {
+						PortPart Port1portPart map B_out,
+						PortPart Port2portPart map B_in
+					}
+				}
+				ComponentPart Part_C {
+					component C
+					portParts {
+						PortPart Port1portPart map C_out,
+						PortPart Port2portPart map C_in
+					}
+				}
+				ComponentPart Part_D {
+					component D
+					portParts {
+						PortPart Port1portPart map D_in,
+						PortPart Port2portPart map D_out
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from Part_A.Port2portPart to Part_B.Port2portPart
+				Connector ^Connector from Part_C.Port2portPart to Part_B.Port1portPart
+				Connector ^Connector from Part_D.Port1portPart to Part_C.Port1portPart
+				Connector ^Connector from Part_D.Port2portPart to Part_A.Port1portPart
+			}
+		}
+		CompositeComponent In_Out_Mapping_Loop_CC {
+			componentParts {
+				ComponentPart DPart {
+					component D
+					portParts {
+						PortPart D_inportPart map D_in,
+						PortPart D_outportPart map D_out
+					}
+				}
+				ComponentPart EPart {
+					component E
+					portParts {
+						PortPart E_inportPart map E_in,
+						PortPart E_outportPart map E_out
+					}
+				}
+				ComponentPart Triple_IO_CCPart {
+					component Triple_IO_CC
+					portParts {
+						PortPart INportPart map IN,
+						PortPart OUTportPart map OUT
+					}
+				}
+				ComponentPart Triple_IO_CCPart_2 {
+					component Triple_IO_CC
+					portParts {
+						PortPart INportPart map IN,
+						PortPart OUTportPart map OUT
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from EPart.E_inportPart to Triple_IO_CCPart_2.OUTportPart
+				Connector ^Connector from Triple_IO_CCPart_2.INportPart to Triple_IO_CCPart.OUTportPart
+				Connector ^Connector from DPart.D_outportPart to Triple_IO_CCPart.INportPart
+				Connector ^Connector from EPart.E_outportPart to DPart.D_inportPart
+			}
+		}
+CompositeComponent Y_CC {
+			ports {
+				INPort Y_in ( )
+				OUTPort Y_out ( )
+			}
+			componentParts {
+				ComponentPart Part_A {
+					component A
+					portParts {
+						PortPart A_inportPart map A_in,
+						PortPart A_outportPart map A_out
+					}
+				}
+				ComponentPart Part_B {
+					component B
+					portParts {
+						PortPart B_outportPart map B_out,
+						PortPart B_inportPart map B_in
+					}
+				}
+				ComponentPart Part_C {
+					component C
+					portParts {
+						PortPart C_outportPart map C_out,
+						PortPart C_inportPart map C_in
+					}
+				}
+				ComponentPart Part_F {
+					component F
+					portParts {
+						PortPart F_in_2portPart map F_out_2,
+						PortPart F_in_1portPart map F_in ,
+						PortPart F_outportPart map F_out_1
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from Part_A.A_outportPart to Part_C.C_inportPart
+				Connector ^Connector from Part_C.C_inportPart to Part_B.B_outportPart
+				Connector ^Connector from Part_F.F_in_2portPart to Part_A.A_inportPart
+				Connector ^Connector from Part_B.B_inportPart to Part_F.F_outportPart
+			}
+			portMappings {
+				PortMapping Mapping from Y_out to Part_C.C_outportPart
+				PortMapping Mapping from Y_in to Part_F.F_in_1portPart
+			}
+		}
+		AtomicComponent F {
+			ports {
+				OUTPort F_out_2 ( )
+				INPort F_in ( )
+				OUTPort F_out_1 ( )
+			}
+			sourceOf { F_DT }
+		}
+}}
+Groups {
+}
+Sanitizer{}
+DataFlowRestrictions {
+}
+DataFlowAssumptions {
+}

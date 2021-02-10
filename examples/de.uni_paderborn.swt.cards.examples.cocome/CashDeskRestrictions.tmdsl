@@ -1,0 +1,184 @@
+System System0 {
+	mappingModel: "CashDesk.mappingmodel"
+	dataTypes {
+		DataType BarCode { } ,
+		DataType CreditCardNumber { } ,
+		DataType CreditCardPin { } ,
+		DataType CashAmount { } ,
+		DataType ChangeAmount { } ,
+		DataType RunningTotal { } ,
+		DataType ProductPrice { } ,
+		DataType ProductName { } ,
+		DataType ProductInfo { }
+	}
+	components {
+		AtomicComponent CardReader {
+			ports {
+				INOUTPort cardReaderPort ( )
+			}
+			sourceOf { CreditCardPin,CreditCardNumber }
+		}
+		AtomicComponent CashBox {
+			ports {
+				INOUTPort cashBoxPort ( )
+			}
+			sourceOf { CashAmount }
+		}
+		AtomicComponent BarcodeScanner {
+			ports {
+				OUTPort scannerPort ( )
+			}
+			sourceOf { BarCode }
+		}
+		AtomicComponent LightDisplay {
+			ports {
+				INPort lightDisplayPort ( )
+			}
+		}
+		AtomicComponent Printer {
+			ports {
+				INPort printerPort ( )
+			}
+		}
+		CompositeComponent CashDesk {
+			ports {
+				INOUTPort cashDeskStoreConnector ( )
+				INOUTPort cashDeskBankPort ( )
+			}
+			componentParts {
+				ComponentPart CardReaderPart {
+					component CardReader
+					portParts {
+						PortPart CardReaderPart map cardReaderPort
+					}
+				}
+				ComponentPart CashBoxPart {
+					component CashBox
+					portParts {
+						PortPart cashBoxPortPart map cashBoxPort
+					}
+				}
+				ComponentPart BarcodeScannerPart {
+					component BarcodeScanner
+					portParts {
+						PortPart ScannerPortPart map scannerPort
+					}
+				}
+				ComponentPart LightDisplayPart {
+					component LightDisplay
+					portParts {
+						PortPart lightDisplayPortPart map lightDisplayPort
+					}
+				}
+				ComponentPart PrinterPart {
+					component Printer
+					portParts {
+						PortPart printerPortPart map printerPort
+					}
+				}
+				ComponentPart CashDeskPCPart {
+					component CashDeskPC
+					portParts {
+						PortPart pcCashBoxPortPart map pcCashBoxPort,
+						PortPart pcCardReaderPortPart map pcCardReaderPort ,
+						PortPart pcScannerPortPart map pcScannerPort ,
+						PortPart pcPrinterPortPart map pcPrinterPort ,
+						PortPart pcLightDisplayPart map pcLightDisplay ,
+						PortPart pcBankPortPart map pcBankPort ,
+						PortPart pcStorePortPart map pcStorePort
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from CashDeskPCPart.pcPrinterPortPart to PrinterPart.printerPortPart
+				Connector ^Connector from CashDeskPCPart.pcScannerPortPart to BarcodeScannerPart.ScannerPortPart
+				Connector ^Connector from CashBoxPart.cashBoxPortPart to CashDeskPCPart.pcCashBoxPortPart
+				Connector ^Connector from CardReaderPart.CardReaderPart to CashDeskPCPart.pcCardReaderPortPart
+				Connector ^Connector from CashDeskPCPart.pcLightDisplayPart to LightDisplayPart.lightDisplayPortPart
+			}
+			portMappings {
+				PortMapping Mapping from cashDeskStoreConnector to CashDeskPCPart.pcStorePortPart
+				PortMapping Mapping from cashDeskBankPort to CashDeskPCPart.pcBankPortPart
+			}
+		}
+		AtomicComponent CashDeskPC {
+			ports {
+				INOUTPort pcCashBoxPort ( )
+				INOUTPort pcCardReaderPort ( )
+				INPort pcScannerPort ( )
+				OUTPort pcPrinterPort ( )
+				OUTPort pcLightDisplay ( )
+				INOUTPort pcBankPort ( )
+				INOUTPort pcStorePort ( )
+			}
+			sourceOf { RunningTotal,ChangeAmount , ProductPrice , ProductName }
+		}
+		AtomicComponent ServerComputer {
+		}
+		AtomicComponent Bank {
+			ports {
+				INOUTPort bankPort ( )
+			}
+		}
+		AtomicComponent StoreServer {
+			ports {
+				INOUTPort storeServerCashDeskPort ( )
+				INOUTPort storeServerClientPort ( )
+			}
+			sourceOf { ProductInfo }
+		}
+		AtomicComponent StoreClient {
+			ports {
+				INOUTPort storeClientServerPort ( )
+			}
+		}
+		CompositeComponent Store {
+			componentParts {
+				ComponentPart StoreClientPart {
+					component StoreClient
+					portParts {
+						PortPart storeClientServerPortPart map storeClientServerPort
+					}
+				}
+				ComponentPart StoreServerPart {
+					component StoreServer
+					portParts {
+						PortPart storeServerCashDeskPortPart map storeServerCashDeskPort,
+						PortPart storeServerClientPortPart map storeServerClientPort
+					}
+				}
+				ComponentPart CashDeskPart {
+					component CashDesk
+					portParts {
+						PortPart cashDeskStorePortPart map cashDeskStoreConnector,
+						PortPart cashDeskBankPortPart map cashDeskBankPort
+					}
+				}
+				ComponentPart BankPart {
+					component Bank
+					portParts {
+						PortPart bankPortPart map bankPort
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from CashDeskPart.cashDeskBankPortPart to BankPart.bankPortPart
+				Connector ^Connector from CashDeskPart.cashDeskStorePortPart to StoreServerPart.storeServerCashDeskPortPart
+				Connector ^Connector from StoreServerPart.storeServerClientPortPart to StoreClientPart.storeClientServerPortPart
+			}
+		} } }
+Groups {
+	DataGroup CreditCardInfo {
+		CreditCardPin,
+		CreditCardNumber
+	}
+}
+Sanitizer {
+		CCSanitizer
+}
+DataFlowRestrictions {
+	GloballyPREVENT CreditCardInfo {
+	Comp CreditCardPin , CreditCardNumber allow CardReader , Bank , CashDeskPC
+	Comp CreditCardPin , CreditCardNumber allow Printer sanitized by CCSanitizer } }
+DataFlowAssumptions {
+}

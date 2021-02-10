@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension point="org.eclipse.sirius.componentization">
+    <component class="de.uni_paderborn.swt.cards.design.Activator"
+               id="de.uni_paderborn.swt.cards.design"
+	       name="CARDS">
+    </component>
+  </extension>
+  <extension
+        point="org.eclipse.sirius.externalJavaAction">
+     <javaActions
+           actionClass="de.uni_paderborn.swt.cards.design.ExternalJavaActionExportReport"
+           id="de.uni_paderborn.swt.cards.design.javaActionsExportReport">
+     </javaActions>
+     <javaActions
+           actionClass="de.uni_paderborn.swt.cards.design.ExternalJavaActionCodeGeneration"
+           id="de.uni_paderborn.swt.cards.design.javaActionsCodeGeneration">
+     </javaActions>
+     <javaActions
+           actionClass="de.uni_paderborn.swt.cards.design.ExternalJavaActionCreateMappingModel"
+           id="de.uni_paderborn.swt.cards.design.javaActionsCreateMappingModel">
+     </javaActions>
+     <javaActions
+           actionClass="de.uni_paderborn.swt.cards.design.ExternalJavaActionChooseMappingModel"
+           id="de.uni_paderborn.swt.cards.design.javaActionsChooseMappingModel">
+     </javaActions>
+     <javaActions
+           actionClass="de.uni_paderborn.swt.cards.design.ExternalJavaActionAnalysisGeneration"
+           id="de.uni_paderborn.swt.cards.design.javaActionsAnalysisGeneration">
+     </javaActions>
+  </extension>
+</plugin>

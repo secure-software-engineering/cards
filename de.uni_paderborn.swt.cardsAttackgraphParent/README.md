@@ -1,0 +1,2 @@
+## Threatmodeling and Attackgraph
+This project serves as a maven parent project to resolve both projects, which are hosted in different repositories. This way, both projects can still be used independently.

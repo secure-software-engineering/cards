@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CARDS Graphical Editor
+Bundle-SymbolicName: de.uni_paderborn.swt.cards.design;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: de.uni_paderborn.swt.cards.design.Activator
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.sirius,
+ org.eclipse.sirius.common.acceleo.aql,
+ org.eclipse.xtext,
+ org.eclipse.emf.transaction;bundle-version="1.9.1",
+ de.uni_paderborn.swt.cards.codeGen;bundle-version="1.0.0",
+ de.uni_paderborn.swt.cards.analysisGen;bundle-version="1.0.0",
+ com.google.gson;bundle-version="2.8.2",
+ org.eclipse.jdt.core,
+ org.eclipse.xtext.ui,
+ org.eclipse.jdt.ui;bundle-version="3.21.200"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: Softwaretechnik, Heinz Nixdorf Institut, Universität Paderborn
+Automatic-Module-Name: de.uni_paderborn.swt.cards.design
+Import-Package: de.uni_paderborn.swt.cards.codeGen,
+ de.uni_paderborn.swt.cards.dsl.analyzer,
+ de.uni_paderborn.swt.cards.dsl.analyzer.data,
+ de.uni_paderborn.swt.cards.dsl.export,
+ de.uni_paderborn.swt.cards.dsl.tmdsl,
+ de.uni_paderborn.swt.cards.dsl.validation,
+ de.uni_paderborn.swt.cards.mappingModel,
+ de.uni_paderborn.swt.cards.mappingModel.impl

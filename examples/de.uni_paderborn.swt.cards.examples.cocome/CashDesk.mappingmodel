@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappingModel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mappingModel="http://www.uni_paderborn.de/swt/cards/mappingModel">
+  <mappings xsi:type="mappingModel:ComponentMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CardReader_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CardReader_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashBox_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.1"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashBox_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.1"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.BarcodeScanner_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.2"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.BarcodeScanner_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.2"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.LightDisplay_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.3"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.LightDisplay_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.3"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.Printer_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.4"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.Printer_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.4"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDesk_CC" targetMethodName="processComponent">
+    <component href="CashDesk.tmdsl#//@system/@components.5"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDesk_CC" targetMethodName="processComponent">
+    <component href="CashDesk.tmdsl#//@system/@components.5"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.6"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="doSomething">
+    <component href="CashDesk.tmdsl#//@system/@components.6"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.7"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.7"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.8"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.8"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.9"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.9"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.10"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.10"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:ComponentMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.11"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SinkMapping">
+    <component href="CashDesk.tmdsl#//@system/@components.11"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.BarcodeScanner_AC" targetMethodName="writeDataScannerPort">
+    <port href="CashDesk.tmdsl#//@system/@components.2/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CardReader_AC" targetMethodName="readDataCardReaderPort">
+    <port href="CashDesk.tmdsl#//@system/@components.0/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.Printer_AC" targetMethodName="readDataPrinterPort">
+    <port href="CashDesk.tmdsl#//@system/@components.4/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashBox_AC" targetMethodName="readDataCashBoxPort">
+    <port href="CashDesk.tmdsl#//@system/@components.1/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashBox_AC" targetMethodName="writeDataCashBoxPort">
+    <port href="CashDesk.tmdsl#//@system/@components.1/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="readDataPcCashBoxPort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="readDataPcCardReaderPort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.1"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="readDataPcScannerPort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.2"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.LightDisplay_AC" targetMethodName="readDataLightDisplayPort">
+    <port href="CashDesk.tmdsl#//@system/@components.3/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDesk_CC" targetMethodName="readDataCashDeskStoreConnector">
+    <port href="CashDesk.tmdsl#//@system/@components.5/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDesk_CC" targetMethodName="readDataCashDeskBankPort">
+    <port href="CashDesk.tmdsl#//@system/@components.5/@ports.1"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDesk_CC" targetMethodName="writeDataCashDeskBankPort">
+    <port href="CashDesk.tmdsl#//@system/@components.5/@ports.1"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDesk_CC" targetMethodName="writeDataCashDeskStoreConnector">
+    <port href="CashDesk.tmdsl#//@system/@components.5/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping">
+    <port href="CashDesk.tmdsl#//@system/@components.8/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="readDataPcBankPort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.5"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="readDataPcStorePort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.6"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping">
+    <port href="CashDesk.tmdsl#//@system/@components.9/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping">
+    <port href="CashDesk.tmdsl#//@system/@components.10/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:InPortMapping">
+    <port href="CashDesk.tmdsl#//@system/@components.9/@ports.1"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="writeDataPcStorePort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.6"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CardReader_AC" targetMethodName="generateCreditCardPin">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.2"/>
+    <component href="CashDesk.tmdsl#//@system/@components.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CardReader_AC" targetMethodName="generateCreditCardNumber">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.1"/>
+    <component href="CashDesk.tmdsl#//@system/@components.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.8"/>
+    <component href="CashDesk.tmdsl#//@system/@components.9"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="generateRunningTotal">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.5"/>
+    <component href="CashDesk.tmdsl#//@system/@components.6"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="generateChangeAmount">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.4"/>
+    <component href="CashDesk.tmdsl#//@system/@components.6"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="generateProductPrice">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.6"/>
+    <component href="CashDesk.tmdsl#//@system/@components.6"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="generateProductName">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.7"/>
+    <component href="CashDesk.tmdsl#//@system/@components.6"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:GroupFilterMapping">
+    <dataGroup href="CashDesk.tmdsl#//@groups/@dataGroups.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashBox_AC" targetMethodName="generateCashAmount">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.3"/>
+    <component href="CashDesk.tmdsl#//@system/@components.1"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SanitizerMapping">
+    <sanitizer href="CashDesk.tmdsl#//@securityDefinitions/@sanitizers.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CardReader_AC" targetMethodName="writeDataCardReaderPort">
+    <port href="CashDesk.tmdsl#//@system/@components.0/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:SourceMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.BarcodeScanner_AC" targetMethodName="generateBarCode">
+    <dataType href="CashDesk.tmdsl#//@system/@datatypes.0"/>
+    <component href="CashDesk.tmdsl#//@system/@components.2"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="writeDataPcCashBoxPort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.0"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="writeDataPcCardReaderPort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.1"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="writeDataPcPrinterPort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.3"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="writeDataPcLightDisplay">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.4"/>
+  </mappings>
+  <mappings xsi:type="mappingModel:OutPortMapping" targetClassName="de.uni_paderborn.swt.cards.examples.cocome.System0.CashDesk.impl.CashDeskPC_AC" targetMethodName="writeDataPcBankPort">
+    <port href="CashDesk.tmdsl#//@system/@components.6/@ports.5"/>
+  </mappings>
+</mappingModel:Model>
