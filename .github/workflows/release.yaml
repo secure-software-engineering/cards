@@ -1,0 +1,71 @@
+name: Publish Artifact to Release
+
+on:
+  # on push tag
+  push:
+    tags: ['v*']
+
+jobs:
+  Release:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set working directory variable
+        run: echo "dir=$(pwd)"
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Checkout attackgraph project
+        run: git clone https://git.cs.uni-paderborn.de/geismann/attackgraph.git ../attackgraph
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      - name: Decrypt Keystore
+        run: gpg --passphrase "${{ secrets.GPG_PASSPHRASE }}" --output cards-keystore.jks --decrypt cards-keystore.jks.gpg
+      - name: Replace keystore path in maven poms
+        run: find . -type f -name "pom.xml" -exec sed -i 's#${keystore.path}#'"${GITHUB_WORKSPACE}"'/cards-keystore.jks#g' {} +
+      - name: Replace keystore password in maven poms
+        run: find . -type f -name "pom.xml" -exec sed -i 's/${keystore.store.password}/${{ secrets.KEYSTORE_PASSWORD }}/g' {} +
+      - name: Replace key password in maven poms
+        run: find . -type f -name "pom.xml" -exec sed -i 's/${keystore.key.password}/${{ secrets.KEY_PASSWORD }}/g' {} +
+      - name: Build with Maven
+        run: mvn -e -B package --file de.uni_paderborn.swt.cardsAttackgraphParent/pom.xml
+      - name: Sign attackgraph artifacts 
+        run: find . -type f -name "de.uni_paderborn.se.attackgraph*" -exec jarsigner -keystore cards-keystore.jks -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -keypass "${{ secrets.KEY_PASSWORD }}" -tsa http://timestamp.digicert.com {} cards-key \;
+
+      - name: Bundle update page
+        run: pushd de.uni_paderborn.swt.cards.update/target/repository/ && zip -r updatesite.zip . && popd
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: Please refer to the [CHANGELOG](./CHANGELOG.md) for more information.
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./de.uni_paderborn.swt.cards.update/target/repository/updatesite.zip
+          asset_name: updatesite.zip
+          asset_content_type: application/zip

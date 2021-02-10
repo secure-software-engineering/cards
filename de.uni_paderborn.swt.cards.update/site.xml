@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="CARDS">
+      This is the update site for CARDS
+   </description>
+   <feature url="features/de.uni_paderborn.swt.cards.feature.jar" id="de.uni_paderborn.swt.cards.feature">
+      <category name="de.uni_paderborn.swt.cards.update"/>
+   </feature>
+   <category-def name="de.uni_paderborn.swt.cards.update" label="CARDS"/>
+</site>

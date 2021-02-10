@@ -1,0 +1,164 @@
+System System0 {
+	mappingModel: "AttackGraphTransformationTest.mappingmodel"
+	dataTypes {
+		DataType A1_DT {			
+		},
+		DataType A2_DT {
+		},
+		DataType B1_DT {
+			
+		},
+		DataType C1_DT {
+			
+		},
+		DataType D1_DT {
+			
+		},
+		DataType B2_DT {
+			
+		},
+		DataType C2_DT {
+			
+		},
+		DataType D2_DT {
+			
+		}
+	} components {
+		AtomicComponent A {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { A1_DT,A2_DT }
+		}
+		AtomicComponent B {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { B1_DT,B2_DT }
+		}
+		AtomicComponent C {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { C1_DT,C2_DT }
+		}
+		AtomicComponent D {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { D1_DT,D2_DT }
+		}
+		CompositeComponent Test_CC {
+			componentParts {
+				ComponentPart APart {
+					component A
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart SinkPart {
+					component Sink
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart BPart {
+					component B
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart CPart {
+					component C
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart DPart {
+					component D
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart Merge1Part {
+					component Merge1
+					portParts {
+						PortPart Port1portPart map Port1,
+						PortPart Port2portPart map merge1_out ,
+						PortPart Port3portPart map Port3
+					}
+				}
+				ComponentPart Merge2Part {
+					component Merge2
+					portParts {
+						PortPart Port1portPart map merge2_out,
+						PortPart Port2portPart map Port1 ,
+						PortPart Port3portPart map Port3
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from APart.Port1portPart to Merge1Part.Port1portPart
+				Connector ^Connector from BPart.Port1portPart to Merge1Part.Port3portPart
+				Connector ^Connector from Merge1Part.Port2portPart to SinkPart.Port1portPart
+				Connector ^Connector from CPart.Port1portPart to Merge2Part.Port3portPart
+				Connector ^Connector from DPart.Port1portPart to Merge2Part.Port2portPart
+				Connector ^Connector from Merge2Part.Port1portPart to SinkPart.Port1portPart
+			}
+		}
+		AtomicComponent Sink {
+			ports {
+				INPort Port1 ( )
+			}
+		}
+		AtomicComponent Merge1 {
+			ports {
+				INPort Port1 ( )
+				OUTPort merge1_out ( )
+				INPort Port3 ( )
+			}
+		}
+		AtomicComponent Merge2 {
+			ports {
+				OUTPort merge2_out ( )
+				INPort Port1 ( )
+				INPort Port3 ( )
+			}
+		}}
+		}
+Groups {
+	DataGroup D1 {A1_DT, B1_DT ,	C1_DT ,D1_DT}
+	DataGroup D2 {A2_DT,B2_DT ,C2_DT ,D2_DT}}
+Sanitizer {^Sanitizer}
+DataFlowRestrictions {
+	GloballyALLOW D1 {
+		Comp A1_DT , B1_DT , C1_DT , D1_DT prevent from Sink if not sanitized by ^Sanitizer}
+	GloballyPREVENT D2 {
+	Comp A2_DT , B2_DT , C2_DT , D2_DT allow A , B , C , D , Merge1 , Merge2
+	Comp A2_DT , B2_DT , C2_DT , D2_DT allow Sink sanitized by ^Sanitizer }
+	}
+DataFlowAssumptions {
+
+componentAssumptions {
+		Component A neverOut D1
+		Component B neverOut D1
+		Component C neverOut D1
+		Component D neverOut D1
+	}
+	componentSanitzerAssumptions {
+		Component A sanitizes D1 using ^Sanitizer
+		Component B sanitizes D1 using ^Sanitizer
+		Component C sanitizes D1 using ^Sanitizer
+		Component D sanitizes D1 using ^Sanitizer
+	}
+	flowAssumptions {
+		Component Merge1 prevents DataFlow Port1 -> merge1_out
+		Component Merge1 prevents DataFlow Port3 -> merge1_out
+		Component Merge2 prevents DataFlow Port3 -> merge2_out
+		Component Merge2 prevents DataFlow Port1 -> merge2_out
+	}
+portSanitizerAssumptions {
+		Port merge1_out sanitizes D2 using ^Sanitizer
+		Port merge2_out sanitizes D2 using ^Sanitizer
+	}
+}

@@ -1,0 +1,296 @@
+System System0 {
+	mappingModel: "RestrictionsTest.mappingmodel"
+	dataTypes {
+DataType A_DT{
+	
+},
+DataType B_DT {
+	
+},
+DataType C_DT {
+	
+},
+DataType D_DT{
+	
+},
+DataType E_DT {
+	
+},
+DataType F_DT {
+	
+}
+}
+	components{
+		AtomicComponent A {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { A_DT }
+		}
+		AtomicComponent B {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { B_DT }
+		}
+		AtomicComponent C {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { C_DT }
+		}
+		CompositeComponent Allow_CC {
+			componentParts {
+				ComponentPart APart {
+					component A
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart Sink_1Part {
+					component Sink_1
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart Sink_2Part {
+					component Sink_2
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart A_SanPart {
+					component A_San
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart Sink_3Part {
+					component Sink_3
+					portParts {
+						PortPart Sink3_inportPart map Sink3_in
+					}
+				}
+				ComponentPart APart2 {
+					component A
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart Sink_4Part {
+					component Sink_4
+					portParts {
+						PortPart Port1portPart map Port1,
+						PortPart Port2portPart map Port2 ,
+						PortPart Port3portPart map Port3
+					}
+				}
+				ComponentPart APart3 {
+					component A
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart BPart {
+					component B
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart CPart {
+					component C
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from A_SanPart.Port1portPart to Sink_2Part.Port1portPart
+				Connector ^Connector from APart.Port1portPart to Sink_1Part.Port1portPart
+				Connector ^Connector from APart2.Port1portPart to Sink_3Part.Sink3_inportPart
+				Connector ^Connector from APart3.Port1portPart to Sink_4Part.Port1portPart
+				Connector ^Connector from BPart.Port1portPart to Sink_4Part.Port2portPart
+				Connector ^Connector from CPart.Port1portPart to Sink_4Part.Port3portPart
+			}
+		}
+		AtomicComponent Sink_1 {
+			ports {
+				INPort Port1 ( )
+			}
+		}
+		AtomicComponent Sink_2 {
+			ports {
+				INPort Port1 ( )
+			}
+		}
+		AtomicComponent Sink_3 {
+			ports {
+				INPort Sink3_in ( )
+			}
+		}
+		AtomicComponent Sink_4 {
+			ports {
+				INPort Port1 ( )
+				INPort Port2 ( )
+				INPort Port3 ( )
+			}
+		}
+		AtomicComponent A_San {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { A_DT }
+		}
+		CompositeComponent Prevent_CC {
+			componentParts {
+				ComponentPart DPart {
+					component D
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart D_SanPart {
+					component D_San
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart DPart2 {
+					component D
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart DPart3 {
+					component D
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart EPart {
+					component E
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart FPart {
+					component F
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart Sink_1Part {
+					component Sink_1
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart Sink_2Part {
+					component Sink_2
+					portParts {
+						PortPart Port1portPart map Port1
+					}
+				}
+				ComponentPart Sink_3Part {
+					component Sink_3
+					portParts {
+						PortPart Sink3_inportPart map Sink3_in
+					}
+				}
+				ComponentPart Sink_4Part {
+					component Sink_4
+					portParts {
+						PortPart Port1portPart map Port1,
+						PortPart Port2portPart map Port2 ,
+						PortPart Port3portPart map Port3
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from DPart3.Port1portPart to Sink_4Part.Port1portPart
+				Connector ^Connector from EPart.Port1portPart to Sink_4Part.Port2portPart
+				Connector ^Connector from FPart.Port1portPart to Sink_4Part.Port3portPart
+				Connector ^Connector from DPart.Port1portPart to Sink_1Part.Port1portPart
+				Connector ^Connector from D_SanPart.Port1portPart to Sink_2Part.Port1portPart
+				Connector ^Connector from DPart2.Port1portPart to Sink_3Part.Sink3_inportPart
+			}
+		}
+		AtomicComponent D {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { D_DT }
+		}
+		AtomicComponent D_San {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { D_DT }
+		}
+		AtomicComponent E {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { E_DT }
+		}
+		AtomicComponent F {
+			ports {
+				OUTPort Port1 ( )
+			}
+			sourceOf { F_DT }
+		}
+		}
+}
+Groups {
+	DataGroup AllData_DG {
+		A_DT,
+		B_DT ,
+		C_DT
+	}
+	DataGroup AllData_2_DG {
+		D_DT,
+		E_DT ,
+		F_DT
+	}
+	ComponentGroup Sink2_CG {
+		Sink_2
+	}
+	ComponentGroup Sink1_CG {
+		Sink_1
+	}
+	ComponentGroup Sink3_CG {
+		Sink_3
+	}
+}
+Sanitizer {
+	^Sanitizer
+}
+DataFlowRestrictions {
+	GloballyALLOW AllData_DG {
+		Comp A_DT , B_DT , C_DT prevent from Sink_1
+		Comp A_DT , B_DT , C_DT prevent from Sink_2 if not sanitized by ^Sanitizer
+		Comp A_DT , B_DT , C_DT prevent from Sink_3 if not sanitized by ^Sanitizer
+		Part A_DT , B_DT , C_DT prevent from Sink_1Part
+		Part A_DT , B_DT , C_DT prevent from Sink_2Part if not sanitized by ^Sanitizer
+		Part A_DT , B_DT , C_DT prevent from Sink_3Part if not sanitized by ^Sanitizer
+		Group A_DT , B_DT , C_DT prevent from Sink1_CG , Sink2_CG , Sink3_CG except Sink_2 , Sink_3
+		Group A_DT , B_DT , C_DT prevent from Sink2_CG , Sink1_CG , Sink3_CG except Sink_1 , Sink_3 if not sanitized by ^Sanitizer
+		Group A_DT , B_DT , C_DT prevent from Sink3_CG , Sink2_CG , Sink1_CG except Sink_2 , Sink_1 if not sanitized by ^Sanitizer
+	}
+	GloballyPREVENT AllData_2_DG {
+	Comp D_DT allow Sink_1
+	Comp D_DT allow Sink_2 sanitized by ^Sanitizer
+	Comp D_DT allow Sink_3 sanitized by ^Sanitizer
+	Part D_DT allow Sink_1Part
+	Part D_DT allow Sink_2Part sanitized by ^Sanitizer
+	Part D_DT allow Sink_3Part sanitized by ^Sanitizer
+	Group D_DT allow Sink1_CG , Sink2_CG , Sink3_CG except Sink_2 , Sink_3
+	Group D_DT allow Sink2_CG , Sink1_CG , Sink3_CG except Sink_1 , Sink_3 sanitized by ^Sanitizer
+	Group D_DT allow Sink3_CG , Sink2_CG , Sink1_CG except Sink_2 , Sink_1 sanitized by ^Sanitizer  }
+}
+DataFlowAssumptions {
+	componentSanitzerAssumptions {
+		Component A_San sanitizes AllData_DG using ^Sanitizer
+		Component D_San sanitizes AllData_2_DG using ^Sanitizer
+	}
+}

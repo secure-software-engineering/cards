@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CARDS Attackgraph Transformation Tests
+Bundle-SymbolicName: de.uni_paderborn.swt.cards.attackgraphTransformation.tests;singleton:=true
+Bundle-Vendor: Softwaretechnik, Heinz Nixdorf Institut, Universität Paderborn
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: de.uni.paderborn.swt.cards.attackgraphTransformation.tests
+Bundle-ActivationPolicy: lazy
+Require-Bundle: de.uni_paderborn.swt.cards.dsl,
+ de.uni_paderborn.swt.cards.attackgraphTransformation,
+ de.uni_paderborn.se.attackgraph,
+ org.junit,
+ org.junit.jupiter.api;bundle-version="[5.0.0,6.0.0)",
+ org.eclipse.xtext.util;bundle-version="2.22.0",
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.emf.ecore;bundle-version="2.22.0",
+ de.uni_paderborn.swt.cards.attackgraphTransformationInvocation
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: de.uni_paderborn.swt.cards.attackgraphTransformation.tests;x-internal=true
+Import-Package: org.eclipse.core.runtime,
+ org.osgi.framework;version="1.9.0"

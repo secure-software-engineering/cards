@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.uni_paderborn.swt.cards.attackgraphTransformation/src-gen"
+    editDirectory="/de.uni_paderborn.swt.cards.attackgraphTransformation.edit/src-gen"
+    editorDirectory="/de.uni_paderborn.swt.cards.attackgraphTransformation.editor/src-gen"
+    modelPluginID="de.uni_paderborn.swt.cards.attackgraphTransformation"
+    modelName="MyAssumptionGroup" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/de.uni_paderborn.swt.cards.attackgraphTransformation.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.genmodel#//tmdsl"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>MyAssumptionGroup.ecore</foreignModel>
+  <genPackages prefix="Mag" basePackage="de.uni_paderborn.swt.cards" disposableProviderFactory="true"
+      ecorePackage="MyAssumptionGroup.ecore#/">
+    <genClasses ecoreClass="MyAssumptionGroup.ecore#//Model">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyAssumptionGroup.ecore#//Model/assumptions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyAssumptionGroup.ecore#//Model/restriction"/>
+    </genClasses>
+    <genClasses ecoreClass="MyAssumptionGroup.ecore#//AssumptionList">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyAssumptionGroup.ecore#//AssumptionList/assumptions"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

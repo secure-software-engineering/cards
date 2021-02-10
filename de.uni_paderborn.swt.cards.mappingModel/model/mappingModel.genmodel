@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.uni_paderborn.swt.cards.mappingModel/src-gen"
+    creationIcons="false" editDirectory="/de.uni_paderborn.swt.cards.mappingModel.edit/src-gen"
+    editorDirectory="/de.uni_paderborn.swt.cards.mappingModel.editor/src-gen"
+    modelPluginID="de.uni_paderborn.swt.cards.mappingModel" modelName="MappingModel"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    testsDirectory="/de.uni_paderborn.swt.cards.mappingModel.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="../../de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.genmodel#//tmdsl"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>mappingModel.ecore</foreignModel>
+  <genPackages prefix="MappingModel" basePackage="de.uni_paderborn.swt.cards"
+      disposableProviderFactory="true" ecorePackage="mappingModel.ecore#/">
+    <genClasses image="false" ecoreClass="mappingModel.ecore#//Mapping">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mappingModel.ecore#//Mapping/targetClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mappingModel.ecore#//Mapping/targetMethodName"/>
+    </genClasses>
+    <genClasses ecoreClass="mappingModel.ecore#//PortMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mappingModel.ecore#//PortMapping/port"/>
+    </genClasses>
+    <genClasses ecoreClass="mappingModel.ecore#//ComponentMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mappingModel.ecore#//ComponentMapping/component"/>
+    </genClasses>
+    <genClasses ecoreClass="mappingModel.ecore#//SourceMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mappingModel.ecore#//SourceMapping/dataType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mappingModel.ecore#//SourceMapping/component"/>
+    </genClasses>
+    <genClasses ecoreClass="mappingModel.ecore#//SinkMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mappingModel.ecore#//SinkMapping/component"/>
+    </genClasses>
+    <genClasses ecoreClass="mappingModel.ecore#//InPortMapping"/>
+    <genClasses ecoreClass="mappingModel.ecore#//OutPortMapping"/>
+    <genClasses ecoreClass="mappingModel.ecore#//SanitizerMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mappingModel.ecore#//SanitizerMapping/sanitizer"/>
+    </genClasses>
+    <genClasses ecoreClass="mappingModel.ecore#//GroupFilterMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mappingModel.ecore#//GroupFilterMapping/dataGroup"/>
+    </genClasses>
+    <genClasses ecoreClass="mappingModel.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mappingModel.ecore#//Model/mappings"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,151 @@
+System System0 {
+	mappingModel: "MyTmdsl.mappingmodel"
+	dataTypes {
+		DataType UserQuery_DT{},
+		DataType UserData_DT{},
+		DataType SQLResponse_DT{},
+		DataType ServerResponse_DT{}
+	}
+	componentKinds {
+		ComponentKind ExternalEntity
+		ComponentKind HumanUser extends ExternalEntity
+		ComponentKind Process
+		ComponentKind DataStore
+		ComponentKind compKind extends DataStore }
+	components {
+		AtomicComponent User_AC {
+			componentKind HumanUser ports {
+				INOUTPort webPort ( )
+			}
+			sourceOf {
+				UserData_DT,UserQuery_DT
+			}
+		}
+		AtomicComponent DbConnector_AC {
+			componentKind Process ports {
+				INOUTPort dbPort ( )
+				INOUTPort serverPort ( )
+			}
+		}
+		AtomicComponent WebServer_AC {
+			componentKind Process ports {
+				INOUTPort userPort ( )
+				INOUTPort dbPort ( )
+			}
+			sourceOf {
+				ServerResponse_DT
+			}
+		}
+		AtomicComponent SQLDataBase_AC {
+			componentKind DataStore ports {
+				INOUTPort connectorPort ( )
+			}
+			sourceOf {
+				SQLResponse_DT
+			}
+		}
+		CompositeComponent ServerEnvironment_CC {
+			ports {
+				INOUTPort userDelegationPort ( )
+			}
+			componentParts {
+				ComponentPart WebServer_ACPart {
+					component WebServer_AC
+					portParts {
+						PortPart userPortportPart map userPort,
+						PortPart dbPortportPart map dbPort
+					}
+				}
+				ComponentPart DbConnector_ACPart {
+					component DbConnector_AC
+					portParts {
+						PortPart dbPortportPart map dbPort,
+						PortPart serverPortportPart map serverPort
+					}
+				}
+				ComponentPart SQLDataBase_ACPart {
+					component SQLDataBase_AC
+					portParts {
+						PortPart connectorPortportPart map connectorPort
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from SQLDataBase_ACPart.connectorPortportPart to DbConnector_ACPart.dbPortportPart
+				Connector ^Connector from WebServer_ACPart.dbPortportPart to DbConnector_ACPart.serverPortportPart
+			}
+			portMappings {
+				PortMapping Mapping from userDelegationPort to WebServer_ACPart.userPortportPart
+			}
+		}
+		CompositeComponent Environment_CC {
+			componentParts {
+				ComponentPart User_ACPart {
+					component User_AC
+					portParts {
+						PortPart webPortportPart map webPort
+					}
+				}
+				ComponentPart ServerEnvironment_CCPart {
+					component ServerEnvironment_CC
+					portParts {
+						PortPart userDelegationPortportPart map userDelegationPort
+					}
+				}
+			}
+			portConnectors {
+				Connector ^Connector from User_ACPart.webPortportPart to ServerEnvironment_CCPart.userDelegationPortportPart
+			}
+		}
+		}
+}
+Groups {
+	DataGroup SQLData {
+		UserQuery_DT
+	}
+	DataGroup AllData {
+		ServerResponse_DT,
+		SQLResponse_DT,
+		UserData_DT,
+		UserQuery_DT
+	}
+}
+Sanitizer {
+		SQLSanitizer
+}
+DataFlowRestrictions {
+	GloballyALLOW SQLData {
+		Comp UserQuery_DT prevent from SQLDataBase_AC if not sanitized by SQLSanitizer
+	}
+
+	
+}
+DataFlowAssumptions {
+	componentAssumptions {
+		Component User_AC nerverOut SQLData
+		Component DbConnector_AC nerverOut SQLData
+		Component WebServer_AC nerverOut SQLData
+	}
+		componentSanitzerAssumptions {
+			Component WebServer_AC sanitizes SQLData using SQLSanitizer
+			Component DbConnector_AC sanitizes SQLData using SQLSanitizer
+			Component User_AC sanitizes SQLData using SQLSanitizer
+			Component ServerEnvironment_CC sanitizes SQLData using SQLSanitizer
+	}
+	flowAssumptions {
+		Component WebServer_AC prevents DataFlow userPort -> dbPort of SQLData
+		Component DbConnector_AC prevents DataFlow serverPort -> dbPort of SQLData
+		Component DbConnector_AC prevents DataFlow serverPort -> dbPort
+	}
+	portAssumptions {
+		Port userDelegationPort nerverOut SQLData
+		Port dbPort nerverOut SQLData
+	}
+	portSanitizerAssumptions {
+		Port userDelegationPort sanitizes SQLData using SQLSanitizer
+		Port dbPort sanitizes SQLData using SQLSanitizer
+	}
+	sanitizersAssumptions {
+		Component DbConnector_AC sanitizes DataFlow serverPort -> dbPort of SQLData using SQLSanitizer
+	}
+}

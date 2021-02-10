@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="de.uni_paderborn.swt.cards.feature">
+      <category name="de.uni_paderborn.swt.cards.category"/>
+   </feature>
+   <category-def name="de.uni_paderborn.swt.cards.category" label="CARDS">
+      <description>
+         This is the category description.
+      </description>
+   </category-def>
+</site>

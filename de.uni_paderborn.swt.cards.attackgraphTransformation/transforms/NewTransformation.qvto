@@ -1,0 +1,113 @@
+modeltype TMDSL uses 'http://www.uni_paderborn.de/swt/cards/dsl/TMDsl';
+modeltype MAG uses 'http://www.uni_paderborn.de/swt/cards/attackgraphTransformation/mag';
+modeltype AG uses 'http://www.uni-paderborn.de/se/attackgraph';
+
+transformation NewTransformation(in mag : MAG, out AG);
+
+main() {
+	var ag : AG::AttackGraph = mag.objects()[TMDSL::Restriction]->map restriction2Mitigations()->any(true);
+	
+	if (mag.objects()[MAG::AssumptionList]-> size() > 1) {
+		var orNode: OR_ConnectorNode := object OR_ConnectorNode {
+		};
+		mag.objects()[MAG::AssumptionList]->forEach(assumption | true ) {
+			orNode.childNode += assumption->map assumption2Mitigations()-> any(true);
+		};	
+		ag.rootNode.childNode += orNode;
+		ag.treenode += orNode.childNode;
+		ag.treenode += orNode.childNode.childNode;
+	} else {
+		mag.objects()[MAG::AssumptionList]->forEach(assumption | true ) {
+			ag.rootNode.childNode += assumption->map assumption2Mitigations()-> any(true);
+		};
+	};
+
+	ag.treenode += ag.rootNode.childNode;
+	ag.treenode += ag.rootNode.childNode.childNode;
+}
+
+query AG::GraphNode::asMitigationNode() : AG::MitigationNode {
+	return self.oclAsType(AG::MitigationNode);
+}
+
+mapping TMDSL::Restriction::restriction2Mitigations() : AG::AttackGraph {
+	name := 'AG';
+	treenode :=  
+	(self.restrictions[TMDSL::AllowGroupRestriction] ->map restriction2Mitigation())->asOrderedSet()->union(
+	(self.restrictions[TMDSL::PreventGroupRestriction] ->map restriction2Mitigation())->asOrderedSet());
+	result.rootNode := result.treenode->first();
+	result.rootNode.isRootNode := true;
+}
+
+mapping TMDSL::AllowGroupRestriction::restriction2Mitigation() : AG::MitigationNode {
+	name := 'Allow';
+	self.groupAsset.groupedData->forEach(e){
+		name := name + ' ' + e.name.toString();
+	};
+	
+}
+
+mapping TMDSL::PreventGroupRestriction::restriction2Mitigation() : AG::MitigationNode {
+	name := 'Prevent';
+	self.groupAsset.groupedData->forEach(e){
+		name := name + ' ' + e.name.toString();
+	};
+}
+
+
+mapping MAG::AssumptionList::assumption2Mitigations() : OrderedSet(AG::GraphNode) {
+	init {
+		var set := self.assumptions[TMDSL::ComponentAssumption]->map componentAssumption2Mitigation()->union(
+		self.assumptions[TMDSL::ComponentSanitizerAssumption]->map componentSanitizerAssumption2Mitigation())->union(
+		self.assumptions[TMDSL::ComponentFlowAssumption]->map componentFlow2Mitigation())->union(
+		self.assumptions[TMDSL::ComponentFlowSanitizationAssumption]->map componentFlowSanitizerAssumption2Mitigation())->union(
+		self.assumptions[TMDSL::PortAssumption]->map portAssumption2Mitigation())->union(
+		self.assumptions[TMDSL::PortSanitizerAssumption]->map portSanitizerAssumption2Mitigation())->asOrderedSet();
+		
+		if (set-> size() > 1) {
+			var andNode: AND_ConnectorNode := object AND_ConnectorNode {
+			};
+			set->forEach(assumption | true ) {
+				andNode.childNode += assumption;
+			};
+			result := andNode->asOrderedSet();
+		} else {
+			result := set;
+		};
+	}
+
+}
+
+mapping TMDSL::ComponentAssumption::componentAssumption2Mitigation() : AG::MitigationNode {
+	name := self.comp.name + " never out " + self.data.name;
+}
+
+mapping TMDSL::ComponentSanitizerAssumption::componentSanitizerAssumption2Mitigation() : AG::MitigationNode {
+	name := self.sanitizerComp.name + " sanitizes " + self.sanitizedData.name + " using " + self.sanitizer.name;
+}
+
+mapping TMDSL::ComponentFlowAssumption::componentFlow2Mitigation() : AG::MitigationNode {
+	if(self.data != null) {
+		name := self.comp.name + " prevents data flow from "+ self.source.name + " to " + self.target.name + " of " + self.data.name;
+	} else {
+		name := self.comp.name + " prevents data flow from "+ self.source.name + " to " + self.target.name;
+	}
+	
+}
+
+mapping TMDSL::ComponentFlowSanitizationAssumption::componentFlowSanitizerAssumption2Mitigation() : AG::MitigationNode {
+	if (self.data != null) {
+		name := self.comp.name + " prevents data flow from " + self.source.name + " to " + self.target.name + " of " + self.data.name + " unless sanitized by " + self.sanitizer.name;
+	} else {
+		name := self.comp.name + " prevents data flow from " + self.source.name + " to " + self.target.name + " unless sanitized by " + self.sanitizer.name;
+	}
+	
+}
+
+mapping TMDSL::PortAssumption::portAssumption2Mitigation() : AG::MitigationNode {
+	name := self.port.name + " never out " + self.data.name;
+}
+
+mapping TMDSL::PortSanitizerAssumption::portSanitizerAssumption2Mitigation() : AG::MitigationNode {
+	name := self.sanitizerPort.name + " sanitizes " + self.sanitizedData.name + " using " + self.sanitizer.name;
+}

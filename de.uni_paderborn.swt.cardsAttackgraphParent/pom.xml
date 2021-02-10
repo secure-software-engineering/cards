@@ -1,0 +1,13 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.uni_paderborn.swt.cards</groupId>
+    <artifactId>tmdsl_ag_root</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>CARDS and Attackgraph</name>
+
+    <modules>
+        <module>../</module>
+        <module>../../attackgraph</module>
+    </modules>
+</project>

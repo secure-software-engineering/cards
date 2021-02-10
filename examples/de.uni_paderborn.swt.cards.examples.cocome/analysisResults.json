@@ -1,0 +1,17 @@
+[
+	{
+		timestamp: "2021-01-06 10:39:20",
+		assumptionId: "de.uni_paderborn.swt.cards.dsl.tmdsl.impl.ComponentFlowSanitizationAssumptionImpl:CashDeskPC:CreditCardInfo:CCSanitizer",
+		pass: false,
+		violations: [
+			"Some Failure",
+			"Another Failure"
+		]
+	},
+	{
+		timestamp: "2021-01-06 10:39:20",
+		assumptionId: "de.uni_paderborn.swt.cards.dsl.tmdsl.impl.PortAssumptionImpl:pcLightDisplay:CreditCardInfo",
+		pass: true,
+		violations: []
+	}
+]

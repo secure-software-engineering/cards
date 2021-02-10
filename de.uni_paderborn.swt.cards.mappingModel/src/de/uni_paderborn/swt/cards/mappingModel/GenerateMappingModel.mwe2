@@ -1,0 +1,24 @@
+module de.uni_paderborn.swt.cards.mappingModel.GenerateMappingModel
+
+import org.eclipse.xtext.xtext.generator.*
+import org.eclipse.xtext.xtext.generator.model.project.*
+
+Workflow {
+	
+	bean = org.eclipse.emf.mwe.utils.StandaloneSetup {
+		scanClassPath = true
+		platformUri = "../.."
+		registerGenModelFile = "platform:/resource/de.uni_paderborn.swt.cards.mappingModel/model/mappingModel.genmodel"
+	}
+	
+	component = org.eclipse.emf.mwe.utils.DirectoryCleaner {
+        directory = "src-gen"
+    }
+	
+	// Models
+	component = org.eclipse.emf.mwe2.ecore.EcoreGenerator {
+		genModel = "platform:/resource/de.uni_paderborn.swt.cards.mappingModel/model/mappingModel.genmodel"
+		srcPath = "platform:/resource/de.uni_paderborn.swt.cards.mappingModel/model/mappingModel/src-gen/"
+		generateEdit = false
+	}
+}

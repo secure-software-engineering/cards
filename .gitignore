@@ -1,0 +1,16 @@
+**/*.class
+**/src-gen/*
+**/xtend-gen/*
+**/target/*
+de.uni_paderborn.swt.cards.htmlExport/*
+de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.ecore
+
+de.uni_paderborn.swt.cards.dsl/model/generated/TMDsl.genmodel
+
+de.uni_paderborn.swt.cards.update/plugins/
+
+de.uni_paderborn.swt.cards.update/artifacts.jar
+
+de.uni_paderborn.swt.cards.update/content.jar
+
+de.uni_paderborn.swt.cards.update/features/de.uni_paderborn.swt.cards.feature_1.0.0.jar

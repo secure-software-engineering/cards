@@ -1,0 +1,301 @@
+grammar de.uni_paderborn.swt.cards.dsl.TMDsl with org.eclipse.xtext.common.Terminals
+
+generate tmdsl "http://www.uni_paderborn.de/swt/cards/dsl/TMDsl"
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+
+Model:
+	system=System NEWLINES
+	groups= Groups NEWLINES
+	securityDefinitions= SecurityDefinitions NEWLINES
+	restriction= Restriction NEWLINES
+	assumption=Assumption NEWLINES
+;
+
+
+
+
+////////////////////////////////////////////
+//System Specification
+///////////////////////////////////////////
+System:
+	'System'
+	name=ID
+	'{'
+		('mappingModel:' path2MappingModel = MAPPINGMODELFILEPATH)?
+		('dataTypes' '{' datatypes+=DataType ( "," datatypes+=DataType)* '}')?
+		('dataLabels' '{' dataLabels+=DataTypeLabel ("," dataLabels+=DataTypeLabel)* '}')?
+		('componentKinds' '{' componentKinds+=ComponentKind ( NEWLINES componentKinds+=ComponentKind)* '}' )? 
+		('components' '{' components+=Component ( NEWLINES components+=Component)* '}' )? 
+		
+	'}'
+;
+
+Component returns Component:
+	CompositeComponent | AtomicComponent;
+
+
+DataType returns DataType:
+	{DataType}
+	'DataType'
+	name=ID '{'
+	('securityLevel' securityLevel=INT)?
+	('type' type=("String" | "Number" | "Object"))?
+	('labels' '{' labels+=[DataTypeLabel] ( "," labels+=[DataTypeLabel])* '}')?
+	'}'
+;
+
+DataTypeLabel returns DataTypeLabel:
+	{DataTypeLabel}
+	'DataTypeLabel'
+	name=ID
+;
+
+ComponentKind returns ComponentKind:
+	{ComponentKind}
+	'ComponentKind'
+	name=ID 
+	('extends' extends=[ComponentKind])?
+;
+
+Port returns Port:
+	{Port}
+	portType=PortType
+	name=ID '('
+		(processedDataTypes+=[DataType|ID] ( "," processedDataTypes+=[DataType|ID])* )?
+		')'
+		('sourceOf' '{' source4Data+=[DataType] (',' source4Data+=[DataType])* '}')?
+;
+
+CompositeComponent returns CompositeComponent:
+	{CompositeComponent}
+	'CompositeComponent'
+	name=ID
+	'{'
+	    ('securityLevel' securityLevel=INT)? 
+        ('componentKind' componentKinds+=[ComponentKind] ( "," componentKinds+=[ComponentKind])*)?
+		('ports' '{' ports+=Port ( NEWLINES ports+=Port)* '}' )?
+		('componentParts' '{' componentParts+=ComponentPart ( NEWLINES componentParts+=ComponentPart)* '}' )?
+		('portConnectors' '{' portconnectors+=PortConnector ( NEWLINES portconnectors+=PortConnector)* '}' )?
+		('portMappings' '{' portMappings+=PortMapping ( NEWLINES portMappings+=PortMapping)* '}')?
+	'}';
+
+AtomicComponent returns AtomicComponent:
+	{AtomicComponent}
+	'AtomicComponent'
+	name=ID
+	'{'
+	    ('securityLevel' securityLevel=INT)? 
+	    ('componentKind' componentKinds+=[ComponentKind] ( "," componentKinds+=[ComponentKind])*)?
+		('ports' '{' ports+=Port ( NEWLINES ports+=Port)* '}' NEWLINES)?
+		('sourceOf' '{' source4Data+=[DataType] (',' source4Data+=[DataType])* '}')?
+	'}';
+
+PortConnector returns PortConnector:
+	'Connector'
+	name=ID
+	'from' sourcePart=[ComponentPart]'.'source=[PortPart] 'to'targetPart=[ComponentPart]'.'target=[PortPart]
+;
+
+PortMapping returns PortMapping:
+	'PortMapping'
+	name=ID
+	'from' source=[Port] 'to'targetPart=[ComponentPart]'.'target=[PortPart]
+;
+
+enum PortType returns PortType:
+				IN = 'INPort' | OUT = 'OUTPort' | INOUT = 'INOUTPort';
+
+PortPart returns PortPart:
+	'PortPart'
+	name=ID
+	'map' port=[Port]
+;
+
+ComponentPart returns ComponentPart:
+	{ComponentPart}
+	'ComponentPart'
+	name=ID
+	'{'
+		('component' component=[Component|ID])
+		('portParts' '{' portParts+=PortPart (',' portParts+=PortPart)* '}')?
+	'}';
+
+
+
+
+
+////////////////////////////////////////////
+//Grouping
+///////////////////////////////////////////
+Groups returns Groups:
+	{Groups} 
+	'Groups' '{'
+	(dataGroups+=DataGroup | componentGroups+=ComponentGroup | portGroup+=PortGroup)*
+'}'
+;
+
+ScopeGroup:
+	{PortGroup} | {ComponentGroup}
+;
+
+PortGroup:
+	'PortGroup' name=ID '{' groupedPorts+=[Port] (',' groupedPorts+=[Port])* '}'
+;
+
+ComponentGroup:
+	'ComponentGroup' name=ID '{' groupedComponents+=[Component] (',' groupedComponents+=[Component])* '}'
+;
+
+DataGroup:
+	'DataGroup' name=ID '{' groupedData+=[DataType] (',' groupedData+=[DataType])* '}'
+;
+
+
+
+////////////////////////////////////////////
+//Sources, Sinks & Sanitizers
+///////////////////////////////////////////
+SecurityDefinitions:
+	{SecurityDefinitions}
+	//'Sources:' sources += (Source)*
+	'Sanitizer' '{' sanitizers += Sanitizer* '}'
+;
+
+Sanitizer returns Sanitizer:
+	name=ID
+;
+
+////////////////////////////////////////////
+//Restrictions
+///////////////////////////////////////////		
+
+Restriction returns Restriction:
+	{Restriction} 
+	'DataFlowRestrictions' '{'
+	
+		restrictions += (AllowGroupRestriction | PreventGroupRestriction)*
+
+	'}'
+;
+
+
+AllowGroupRestriction returns AllowGroupRestriction:
+	{AllowGroupRestriction}
+	'GloballyALLOW'  (groupAsset+=[DataGroup](','groupAsset+=[DataGroup]*)?) '{'
+		(compPreventRefinements+=ComponentPreventRefinement | compPartPreventRefinements+=ComponentPartPreventRefinement | compGroupPreventRefinements+=ComponentGroupPreventRefinement)*
+		'}'
+;
+
+ComponentGroupPreventRefinement:
+	'Group' dataAsset+=[DataType](','dataAsset+=[DataType])* 'prevent from' componentGroup+=[ComponentGroup](','componentGroup+=[ComponentGroup])* ('except' excludeComp+=[Component] (',' excludeComp+=[Component])*)? sanitizerOption=PreventRefinementSanitizerOption?
+;
+
+ComponentPartPreventRefinement:
+	'Part' dataAsset+=[DataType](','dataAsset+=[DataType])* 'prevent from' componentPart+=[ComponentPart](','componentPart+=[ComponentPart])* sanitizerOption=PreventRefinementSanitizerOption?
+;
+
+ComponentPreventRefinement:
+	'Comp' dataAsset+=[DataType](','dataAsset+=[DataType])* 'prevent from' component+=[Component](','component+=[Component])* sanitizerOption=PreventRefinementSanitizerOption?
+	
+;
+
+PreventRefinementSanitizerOption:
+	'if not sanitized by' sanitizer=[Sanitizer]
+;
+
+PreventGroupRestriction returns PreventGroupRestriction:
+	{PreventGroupRestriction}
+	'GloballyPREVENT'  ((groupAsset+=[DataGroup](','groupAsset+=[DataGroup]*)?)) '{'
+		(compAllowRefinement+=ComponentAllowRefinement | compPartRefinement+=ComponentPartAllowRefinement | compGroupAllowRefinement+=ComponentGroupAllowRefinement)*
+		'}'
+;
+
+ComponentGroupAllowRefinement:
+	'Group' dataAsset+=[DataType](','dataAsset+=[DataType])* 'allow' componentGroup+=[ComponentGroup](','componentGroup+=[ComponentGroup])* ('except' excludeComp+=[Component] (',' excludeComp+=[Component])*)? sanitizerOption=AllowRefinementSanitizerOption?
+
+;
+
+ComponentPartAllowRefinement:
+	'Part' dataAsset+=[DataType](','dataAsset+=[DataType])* 'allow' componentPart+=[ComponentPart](','componentPart+=[ComponentPart])* sanitizerOption=AllowRefinementSanitizerOption?
+;
+
+ComponentAllowRefinement:
+	'Comp' dataAsset+=[DataType](','dataAsset+=[DataType])* 'allow' component+=[Component](','component+=[Component])* sanitizerOption=AllowRefinementSanitizerOption?
+;
+
+AllowRefinementSanitizerOption:
+	'sanitized by' sanitizer=[Sanitizer]
+;
+
+//////////////////////////////////////////////
+////Assumptions
+/////////////////////////////////////////////	
+Assumption returns Assumption:
+	{Assumption}
+	'DataFlowAssumptions' '{'
+		(('componentAssumptions' '{' componentAssumptions+=ComponentAssumption ( NEWLINES componentAssumptions+=ComponentAssumption)* '}') NEWLINES)?  
+		(('componentSanitzerAssumptions' '{' componentSanitzerAssumptions+=ComponentSanitizerAssumption ( NEWLINES componentSanitzerAssumptions+=ComponentSanitizerAssumption)* '}') NEWLINES)?  
+		(('flowAssumptions' '{' flowAssumptions+=ComponentFlowAssumption ( NEWLINES flowAssumptions+=ComponentFlowAssumption)* '}') NEWLINES)?  
+		(('portAssumptions' '{' portAssumptions+=PortAssumption (NEWLINES portAssumptions+=PortAssumption)* '}')NEWLINES)?
+		(('portSanitizerAssumptions' '{' portSanitizerAssumptions += PortSanitizerAssumption (NEWLINES portSanitizerAssumptions += PortSanitizerAssumption)* '}')NEWLINES)?
+		(('sanitizersAssumptions' '{' sanitizersAssumptions+=ComponentFlowSanitizationAssumption ( NEWLINES sanitizersAssumptions+=ComponentFlowSanitizationAssumption)* '}') NEWLINES)?
+	'}'	
+;
+
+
+DataFlowAssumption :
+	({ComponentAssumption} | {ComponentSanitizerAssumption} | {ComponentFlowAssumption} | {ComponentFlowSanitizationAssumption})
+;
+
+ComponentAssumption:
+	'Component' comp=[Component] ('neverOut' data=[DataGroup])
+;
+
+ComponentSanitizerAssumption:
+	'Component' sanitizerComp=[Component] 'sanitizes' sanitizedData=[DataGroup] 'using' sanitizer=[Sanitizer]
+;
+
+ComponentFlowAssumption:
+	'Component' comp=[Component] 'prevents' 'DataFlow' source=[Port] '->' target=[Port] ('of' data=[DataGroup])?
+;
+
+ComponentFlowSanitizationAssumption:
+	'Component' comp=[Component] 'sanitizes' 'DataFlow' source=[Port] '->' target=[Port] ('of' data=[DataGroup])? 'using' sanitizer=[Sanitizer]
+;
+
+PortAssumption:
+	'Port' port=[Port] ('neverOut' data=[DataGroup])
+;
+
+PortSanitizerAssumption:
+	'Port' sanitizerPort=[Port] 'sanitizes' sanitizedData=[DataGroup] 'using' sanitizer=[Sanitizer]
+;
+
+enum AssumptionKind:
+	NEVER = 'never leaks' | SANITIZES = 'sanitizes'
+;
+
+
+
+
+//////////////////////////////////////////////
+////Helper & Custom Stuff
+/////////////////////////////////////////////
+NEWLINES:
+	NEWLINE*
+;
+
+
+
+terminal NEWLINE:
+	'\n' | '\r'
+;
+//
+terminal MAPPINGMODELFILEPATH:
+    '"' ID? ('/'ID)* '.mappingmodel''"'
+;
+//enum ArtifactKind:
+//    JAVA='Java' | C='C/C++' | FSM='FSM'
+//;
