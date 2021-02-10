@@ -16,6 +16,7 @@ All plugins are developed and tested using eclipse 2020-03, support for other ve
 ## Using pre-built binaries
 
 You can use artifacts of our CI as a update site for eclipse plugins or have a look at our releases for more stable versions.
+You can use `https://github.com/secure-software-engineering/cards/releases/latest/download/updatesite.zip` as an update site link to stay up to date. 
 
 ## Building The Artifacts Yourself
 
