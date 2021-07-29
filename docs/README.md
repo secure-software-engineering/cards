@@ -10,38 +10,38 @@ Assumptions describe assumptions regarding the implementation of the components 
 We also provide a static analysis that checks of the system meets all specified restriction with respect to the specified assumptions.
 
 In the following, we describe all modeling and analysis features in more detail.
-If you would like to try our tooling yourself, check our [Users Guide](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/UserGuide.md) for first steps! 
+If you would like to try our tooling yourself, check our [Users Guide](https://github.com/secure-software-engineering/cards/blob/develop/docs/UserGuide.md) for first steps! 
 
 ## About our component models
 The following links can give additional semantic information for every part of our models.
 
-[System](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/ComponentModels.md#System)
+[System](https://github.com/secure-software-engineering/cards/blob/develop/docs/ComponentModels.md#System)
 
-[Component](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/ComponentModels.md#Component)
+[Component](https://github.com/secure-software-engineering/cards/blob/develop/docs/ComponentModels.md#Component)
 
-[Connections](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/ComponentModels.md#Component#CompositeComponent#Connections)
+[Connections](https://github.com/secure-software-engineering/cards/blob/develop/docs/ComponentModels.md#Component#CompositeComponent#Connections)
 
 ## About our security definitions
 We model our security definitions in assumptions and restrictions:
 
-[Assumptions](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/SecurityDefinitions.md#Assumptions)
+[Assumptions](https://github.com/secure-software-engineering/cards/blob/develop/docs/SecurityDefinitions.md#Assumptions)
 
-[Restictions](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/SecurityDefinitions.md#Restrictions)
+[Restictions](https://github.com/secure-software-engineering/cards/blob/develop/docs/SecurityDefinitions.md#Restrictions)
 
-[Sanitizer](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/SecurityDefinitions.md#Santizier)
+[Sanitizer](https://github.com/secure-software-engineering/cards/blob/develop/docs/SecurityDefinitions.md#Santizier)
 
-[Groups](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/SecurityDefinitions.md#Groups)
+[Groups](https://github.com/secure-software-engineering/cards/blob/develop/docs/SecurityDefinitions.md#Groups)
 
 ## About our modeling tools
 We offer a textual and graphical modeling tool, implemented using xtext and sirius respectively.
 
-[Graphical Modeling](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/GraphicalEditor.md)
+[Graphical Modeling](https://github.com/secure-software-engineering/cards/blob/develop/docs/GraphicalEditor.md)
 
-[Textual Modeling](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/TextualEditor.md)
+[Textual Modeling](https://github.com/secure-software-engineering/cards/blob/develop/docs/TextualEditor.md)
 
-[Exporting Data and Results](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/Exports.md)
+[Exporting Data and Results](https://github.com/secure-software-engineering/cards/blob/develop/docs/Exports.md)
 
-[Importing other Models](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/Imports.md)
+[Importing other Models](https://github.com/secure-software-engineering/cards/blob/develop/docs/Imports.md)
 
 ## About our Analysis
-[Analyzer Documentation](https://github.com/jogeismann/securedataflowdsl/blob/develop/docs/Analyzer.md)
+[Analyzer Documentation](https://github.com/secure-software-engineering/cards/blob/develop/docs/Analyzer.md)
